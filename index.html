@@ -1,110 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>My first Vue page</title>
-</head>
-<body style="background-color: #f0f0f0;">
-
-    <div id="app">
-        <v-app>
-            <v-container>
-                <v-card>
-                  <v-card-title class="bg-orange-darken-4">{{title}}</v-card-title>
-                  <v-card-text class="pa-4">
-                    <template v-if="state==0">
-                        <v-btn @click='shuffle()'>เริ่มเล่น</v-btn>
-                    </template>
-
-                    <template v-if="state==1">
-                      <v-btn @click="state=0">เลิกเล่น</v-btn>
-                        <v-row>
-                            <v-col v-for="(c,i) of cards" :key="i" cols="2" >
-                                <img v-if='c.s==0' src='work1/0.jpg' width="80" @click="imgclick(c)">
-                                <img v-if='c.s==1' :src="'work1/'+c.t+'.jpg'" width="80">
-                            </v-col>
-                        </v-row>
-                        
-                    </template>
-                    
-                   
-                    <template v-if="state==2">
-                      <h1>คุณชนะแล้ว เก่งมาก</h1>
-                      <br />
-                      <v-btn @click="state=0">ตกลง</v-btn>
-                    </template>
-                  </v-card-text>
-                  <v-bottom-navigation class="bg-grey">
-                    <div class="text-body-1">{{footer}}</div>
-                  </v-bottom-navigation>
-                </v-card>
-              </v-container>
-       </v-app>
-  </div>
-
-  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vuetify@3.4.10/dist/vuetify.min.js"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vuetify@3.4.10/dist/vuetify.min.css">
-
-  <script>
-    const vuetify = Vuetify.createVuetify();
-    const app = Vue.createApp({
-      data() {
-        return {
-          title: "Work 3: เกมจับคู่ภาพ โดยใช้ VueJS",
-          footer: "รหัส 643020621-6 ชื่อ นายปฏิเวธ คงสวัสดิ์ สาขาวิชา CS",
-          state: 0,
-          cards: [],
-          cards_opened: [],
-          cards_count: 0,
-        };
-      },
-      methods: {
-        shuffle() {
-          this.state = 1;
-          this.cards = [];
-          this.cards_opened = [];
-          this.cards_count = 36;
-          for (var i = 1; i <= 18; i++) {
-            this.cards.push({ t: i, s: 0 });
-            this.cards.push({ t: i, s: 0 });
-          }
-          for (var i = 1; i < 200; i++) {
-            var a = Math.round(Math.random() * 35);
-            var b = Math.round(Math.random() * 35);
-            var t = this.cards[a];
-            this.cards[a] = this.cards[b];
-            this.cards[b] = t;
-          }
-        },
-        imgclick(c) {
-          if(this.cards_opened.length<2){
-            c.s = 1;
-            this.cards_opened.push(c); 
-
-            if(this.cards_opened.length==2){
-              setTimeout(this.checkCard,1000);            
-            }                  
-          }
-        },
-        checkCard(){
-          var a=this.cards_opened[	0];  
-          var b=this.cards_opened[1];
-          this.cards_opened=[];
-          if(a.t==b.t){  // รูปตรงกัน
-            a.s=2;      // s=2 หมายถึงลบภาพออก
-            b.s=2;
-            this.cards_count -= 2;
-          }else{
-            a.s=0;    // s=0 หมายถึง ปิดภาพ
-            b.s=0;
-          }
-          if(this.cards_count==0){  // ไม่เหลือ card บนจอ
-            this.state = 2;          // เปลี่ยน state เป็น 2 เพื่อแสดงหน้า ชนะ
-          }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #f8f8f8;
         }
-      },
-    });
-    app.use(vuetify).mount("#app");
-  </script>
+
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1em 0;
+        }
+
+        section {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .project {
+            margin-bottom: 20px;
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .project img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1em 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>นายปฏิเวธ คงสวัสดิ์ 643020621-6 SEC2</h1>
+    </header>
+
+    <section>
+        <div class="project">
+            <h2>งานที่ 1 เกมจับคู่ภาพด้วย jquery</h2>
+            <a href="work1.html">งานที่ 1 เกมจับคู่ภาพด้วย jquery</a>
+            
+        </div>
+
+        <div class="project">
+            <h2>งานที่ 2 web 3d </h2>
+            <a href="work2.html">งานที่ 2 web 3d</a>
+            <
+        </div>
+
+        <div class="project">
+          <h2>งานที่ 3 เกมจับคู่ภาพด้วย VueJS </h2>
+          <a href="work3.html">งานที่ 3 เกมจับคู่ภาพด้วย VueJS</a>
+          <
+      </div>
+
+        
+
+    </section>
+
+    <footer>
+        <p>นายปฏิเวธ คงสวัสดิ์ 643020621-6 SEC2 </p>
+    </footer>
+
 </body>
 </html>
