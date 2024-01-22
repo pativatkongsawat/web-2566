@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
   <title>My first Vue page</title>
+  <link rel="stylesheet" href="style1.css">
 </head>
-<body style="background-color: #f0f0f0;">
+<body>
 
     <div id="app">
         <v-app>
@@ -33,8 +34,8 @@
                       <v-btn @click="state=0">ตกลง</v-btn>
                     </template>
                   </v-card-text>
-                  <v-bottom-navigation class="bg-grey">
-                    <div class="text-body-1">{{footer}}</div>
+                  <v-bottom-navigation class="bg-grey" >
+                    <div class="text-body-1 ">{{footer}}</div>
                   </v-bottom-navigation>
                 </v-card>
               </v-container>
@@ -85,23 +86,26 @@
               setTimeout(this.checkCard,1000);            
             }                  
           }
+
         },
         checkCard(){
-          var a=this.cards_opened[	0];  
-          var b=this.cards_opened[1];
-          this.cards_opened=[];
-          if(a.t==b.t){  // รูปตรงกัน
-            a.s=2;      // s=2 หมายถึงลบภาพออก
-            b.s=2;
-            this.cards_count -= 2;
-          }else{
-            a.s=0;    // s=0 หมายถึง ปิดภาพ
-            b.s=0;
-          }
-          if(this.cards_count==0){  // ไม่เหลือ card บนจอ
+           
+           var a=this.cards_opened[	0];  
+           var b=this.cards_opened[1];
+           this.cards_opened=[];
+           if(a.t==b.t){  // รูปตรงกัน
+              a.s=2;      // s=2 หมายถึงลบภาพออก
+              b.s=2;
+              this.cards_count -= 2;
+           }else{
+              a.s=0;    // s=0 หมายถึง ปิดภาพ
+              b.s=0;
+           }
+           if(this.cards_count==0){  // ไม่เหลือ card บนจอ
             this.state = 2;          // เปลี่ยน state เป็น 2 เพื่อแสดงหน้า ชนะ
-          }
+           }
         }
+
       },
     });
     app.use(vuetify).mount("#app");
